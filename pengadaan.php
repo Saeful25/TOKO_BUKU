@@ -44,7 +44,7 @@ require_once "core/init.php";
                                    penerbit.nama,
                                    buku.* FROM buku
                                    INNER JOIN penerbit ON buku.penerbit_id = penerbit.id
-                                --    WHERE stok asc 
+                                   WHERE stok ORDER BY stok ASC
                                    ");
                                  ?>
                                  <table class="table">

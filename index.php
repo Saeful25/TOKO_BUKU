@@ -5,15 +5,24 @@ require_once "core/init.php";
 // pencarian (search)
 if (isset($_GET['searc'])) {
     $search = $_GET['searc'];
-    $cari = "SELECT * FROM buku 
+    $cari = "SELECT 
+    kategori.kategori,
+    penerbit.nama,
+    buku.* FROM buku
+    INNER JOIN kategori ON buku.kategori_id = kategori.id
+    INNER JOIN penerbit ON buku.penerbit_id = penerbit.id 
     WHERE nama_buku LIKE '%$search%'";
-    // -- OR kategori LIKE '%$search%'";
 
-    $berita = mysqli_query($connect, $cari);
+    $buku = mysqli_query($connect, $cari);
 
     // cek kalau data pencarian user tidak ditemukan
-    if (mysqli_num_rows($berita) == 0) {
+    if (mysqli_num_rows($buku) == 0) {
         $error = true;
+    } else {
+        // Check for database errors
+        if (mysqli_error($connect)) {
+            echo "Error: " . mysqli_error($connect);
+        }
     }
 }
 ?>
@@ -67,15 +76,7 @@ if (isset($_GET['searc'])) {
                           
                            <div class="table_section padding_infor_info">
                               <div class="table-responsive-sm">
-                                 <?php
-                                   $books = mysqli_query($connect ,"SELECT 
-                                   kategori.kategori,
-                                   penerbit.nama,
-                                   buku.* FROM buku
-                                   INNER JOIN kategori ON buku.kategori_id = kategori.id
-                                   INNER JOIN penerbit ON buku.penerbit_id = penerbit.id
-                                   ");
-                                 ?>
+                                
                                  <table class="table">
                                     <thead>
                                        <tr>
@@ -90,21 +91,26 @@ if (isset($_GET['searc'])) {
                                     </thead>
                                     <tbody>
                                        <?php
-                                       foreach ($books as $buku ) {
+                                       foreach ($buku as $buk ) {
                                         ?>
                                         <tr>
-                                            <td><?= $buku['kode']?></td>
-                                            <td><?= $buku['kategori']?></td>
-                                            <td><?= $buku['nama_buku']?></td>
-                                            <td><?= $buku['harga']?></td>
-                                            <td><?= $buku['stok']?></td>
-                                            <td><?= $buku['nama']?></td>
+                                            <td><?= $buk['kode']?></td>
+                                            <td><?= $buk['kategori']?></td>
+                                            <td><?= $buk['nama_buku']?></td>
+                                            <td><?= $buk['harga']?></td>
+                                            <td><?= $buk['stok']?></td>
+                                            <td><?= $buk['nama']?></td>
                                         </tr>
 
                                         <?php
                                        }
                                        ?>
                                     </tbody>
+                                    <?php
+                                if (isset($error)) {
+                                    echo "<tr><td colspan='5' class='text-center text-muted'>pencarian tidak ditemukan</td></tr>";
+                                }
+                                ?>
                                  </table>
                               </div>
                            </div>
