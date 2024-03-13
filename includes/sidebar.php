@@ -34,7 +34,7 @@
                <li><a href="form_penerbit.php"> <span>Tambah Penerbit</span></a></li>
             </ul>
          </li>
-         <li><a href="dt_stok.php"><i class="fa fa-archive green_color"></i> <span>pengadaan</span></a></li>
+         <li><a href="pengadaan.php"><i class="fa fa-archive green_color"></i> <span>pengadaan</span></a></li>
       </ul>
    </div>
 </nav>

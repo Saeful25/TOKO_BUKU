@@ -1,21 +1,5 @@
 <?php
 require_once "core/init.php";
-
-
-// pencarian (search)
-if (isset($_GET['searc'])) {
-    $search = $_GET['searc'];
-    $cari = "SELECT * FROM buku 
-    WHERE nama_buku LIKE '%$search%'";
-    // -- OR kategori LIKE '%$search%'";
-
-    $berita = mysqli_query($connect, $cari);
-
-    // cek kalau data pencarian user tidak ditemukan
-    if (mysqli_num_rows($berita) == 0) {
-        $error = true;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -51,40 +35,25 @@ if (isset($_GET['searc'])) {
                            <div class="full graph_head">
                               <div class="heading1 margin_0">
                                  <h2>Data Buku</h2>
-                                 </div>
-                        <form class="row float-end row-cols-lg-auto g-2 align-items-center" method="GET">
-                            <div class="col-6">
-                                <div class="form-check">
-                                    <input type="text" class="form-control" placeholder="Mau cari apa?" name="searc">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <button type="submit" class="btn btn-success" name="cari">
-                                    <i class="fa fa-search"></i> Cari</button>
-                            </div>
-                        </form>
                               </div>
-                          
+                           </div>
                            <div class="table_section padding_infor_info">
                               <div class="table-responsive-sm">
                                  <?php
                                    $books = mysqli_query($connect ,"SELECT 
-                                   kategori.kategori,
                                    penerbit.nama,
                                    buku.* FROM buku
-                                   INNER JOIN kategori ON buku.kategori_id = kategori.id
                                    INNER JOIN penerbit ON buku.penerbit_id = penerbit.id
+                                --    WHERE stok asc 
                                    ");
                                  ?>
                                  <table class="table">
                                     <thead>
                                        <tr>
                                           <th>#</th>
-                                          <th>Kategori</th>
                                           <th>Nama Buku</th>
-                                          <th>Harga</th>
-                                          <th>Stok</th>
                                           <th>Penerbit</th>
+                                          <th>Stok</th>
                                           <th></th>
                                        </tr>
                                     </thead>
@@ -94,11 +63,9 @@ if (isset($_GET['searc'])) {
                                         ?>
                                         <tr>
                                             <td><?= $buku['kode']?></td>
-                                            <td><?= $buku['kategori']?></td>
                                             <td><?= $buku['nama_buku']?></td>
-                                            <td><?= $buku['harga']?></td>
-                                            <td><?= $buku['stok']?></td>
                                             <td><?= $buku['nama']?></td>
+                                            <td><?= $buku['stok']?></td>
                                         </tr>
 
                                         <?php
