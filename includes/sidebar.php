@@ -27,6 +27,13 @@
                <li><a href="form_buku.php"> <span>Tambah Buku</span></a></li>
             </ul>
          </li>
+         <li>
+            <a href="#el" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-database orange_color"></i> <span>Penerbit</span></a>
+            <ul class="collapse list-unstyled" id="el">
+               <li><a href="dt_penerbit.php"> <span>Data Penerbit</span></a></li>
+               <li><a href="form_penerbit.php"> <span>Tambah Penerbit</span></a></li>
+            </ul>
+         </li>
          <li><a href="dt_stok.php"><i class="fa fa-archive green_color"></i> <span>pengadaan</span></a></li>
       </ul>
    </div>
